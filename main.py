@@ -3,6 +3,7 @@ from selenium import webdriver
 import time
 import pandas as pd
 
+
 def get_next(driver):
     get_next_page = driver.find_elements(by=By.XPATH,
                                          value='//*[@id="announ-page"]/div/div[2]/div[2]/div/div/div/div[2]/div/ul/li[*]/a')
@@ -78,8 +79,9 @@ if __name__ == '__main__':
                                                                 value='//*[@id="announ-page"]/div/div[2]/div[1]/table/tbody/tr[*]/td[13]')]
     data_dict = {"Nama": nama, "Lembaga": lembaga, "Unit Kerja": unit_kerja, "Jabatan": jabatan,
                  "Tanggal Lapor": tanggal_lapor, "Jenis Lapor": jenis_lapor, "Kekayaan": kekayaan}
-    data_frame = pd.DataFrame(data_dict)
-    data_frame.to_csv("data/kekayaan347109.csv")
+    df = pd.DataFrame(data_dict)
+    df["Kekayaan"] = df["Kekayaan"].str.replace("Rp.", "").str.replace(".", "")
+    df.to_csv("data/kekayaan347109.csv")
     time.sleep(10)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
